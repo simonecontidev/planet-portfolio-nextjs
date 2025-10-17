@@ -24,39 +24,87 @@ export default function PlanetPage({ params }: Props) {
   const planetSrc = planet.images.planet.replace('./', '/');
 
   return (
-    <Box>
+    <Box sx={{ backgroundColor: '#0b0d17', color: 'white', minHeight: '100vh' }}>
       <Nav />
-      <Container maxWidth="lg" sx={{ mt: 6 }}>
-        <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap" }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          mt: 10,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: { xs: 'wrap', md: 'nowrap' },
+          gap: 6,
+        }}
+      >
+        {/* Immagine */}
+        <Box sx={{ flex: '1 1 40%', textAlign: 'center' }}>
           <Image
             src={planetSrc}
             alt={`${planet.name} image`}
-            width={300}
-            height={300}
+            width={400}
+            height={400}
             priority
+            style={{ maxWidth: '100%', height: 'auto' }}
           />
         </Box>
 
-        <Box sx={{ width: "30vw", mx: "auto", mt: 4 }}>
-          <Typography variant="h2">{planet.name}</Typography>
-          <Typography variant="body1" sx={{ mt: 2 }}>
+        {/* Testo */}
+        <Box
+          sx={{
+            flex: '1 1 60%',
+            maxWidth: 600,
+            mx: 'auto',
+            textAlign: { xs: 'center', md: 'left' },
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 700,
+              letterSpacing: '2px',
+              mb: 2,
+              textTransform: 'uppercase',
+            }}
+          >
+            {planet.name}
+          </Typography>
+
+          <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.8, opacity: 0.9 }}>
             {planet.overview.content}
           </Typography>
-          <Typography sx={{ mt: 1 }}>
-            Source:{" "}
+
+          <Typography
+            variant="body2"
+            sx={{
+              opacity: 0.6,
+              '& a': { color: '#4fa3f7', textDecoration: 'none', ml: 0.5 },
+              '& a:hover': { textDecoration: 'underline' },
+            }}
+          >
+            Source:
             <Link href={planet.overview.source} target="_blank" rel="noopener">
               Wikipedia
             </Link>
           </Typography>
         </Box>
-
-        <Box sx={{ display: "flex", justifyContent: "space-around", mt: 6, flexWrap: "wrap" }}>
-          <DataBox title="Rotation Time" data={planet.rotation} />
-          <DataBox title="Revolution Time" data={planet.revolution} />
-          <DataBox title="Radius" data={planet.radius} />
-          <DataBox title="Average Temperature" data={planet.temperature} />
-        </Box>
       </Container>
+
+      {/* Data Boxes */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          mt: 8,
+          pb: 8,
+        }}
+      >
+        <DataBox title="Rotation Time" data={planet.rotation} />
+        <DataBox title="Revolution Time" data={planet.revolution} />
+        <DataBox title="Radius" data={planet.radius} />
+        <DataBox title="Average Temperature" data={planet.temperature} />
+      </Box>
     </Box>
   );
 }
