@@ -1,15 +1,11 @@
-import React from 'react';
-import NavLink from './NavLink';
 import { Box, Typography } from '@mui/material';
-import data from '@/data/data.json'; 
+import data from '@/data/data.json';
+import NavLink from './NavLink';
 
-type Planet = {
-  id: string | number;
-  name: string;
-};
+type Planet = { id: string; name: string };
 
 const Nav = () => {
-  const planets: Planet[] = Array.isArray(data) ? data : data.planets; 
+  const planets: Planet[] = Array.isArray(data) ? data as Planet[] : (data as any).planets;
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '1rem', borderBottom: '1px solid rgba(255,255,255,0.75)' }}>
@@ -21,7 +17,6 @@ const Nav = () => {
         {planets?.map((planet) => (
           <NavLink
             key={planet.id}
-            planetId={planet.id}
             planetName={planet.name}
           />
         ))}
